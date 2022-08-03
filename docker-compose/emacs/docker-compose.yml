@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+    nexus:
+        image: silex/emacs
+        container_name: "emacs"
+        stdin_open: true
+        tty: true
+        volumes:
+          - /dev/shm/glyn-home:/glyn-home:z
+        #ports:
+        #  - 8081:8081
+        #environment:
+        #restart: always
+
+#volumes:
+#  nexus-data:
+#    external: false

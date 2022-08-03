@@ -30,7 +30,6 @@ vrbo_cfg_env() {
     mkdir -p $VRBO/{bin,etc,var,run,tmp}
     mkdir -p $VRBO_TMP
 
-    export PATH=$PATH:$VRBO/bin
 
     echo 'export PATH=$PATH:$VRBO/bin' >> $VRBO/.bashrc
 }
@@ -49,6 +48,12 @@ vrbo_import() {
     cp -r ~/.docker $VRBO
 }
 
+vrbo_docker() {
+
+    # docker-compose:  do this
+    # - https://docs.docker.com/compose/install/compose-plugin/#install-the-plugin-manually
+}
+
 
 vrbo_main() {
     cfg_env
@@ -57,6 +62,7 @@ vrbo_main() {
 
 vrbo_sh() {
     export OLD_HOME=$HOME
+    export PATH=$PATH:$VRBO/bin
     HOME=$VRBO /bin/bash
 }
 
