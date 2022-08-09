@@ -21,6 +21,13 @@ vrbo_cfg_vim() {
     ln -s $VRBO/.vim/.vimrc $VRBO/.vimrc
 }
 
+vrbo_cfg_bat() {
+    echo Setup bat
+    wget https://github.com/sharkdp/bat/releases/download/v0.21.0/bat-v0.21.0-x86_64-unknown-linux-gnu.tar.gz -O $VRBO_TMP/bat.tar.gz
+    tar xzvf $VRBO_TMP/bat.tar.gz -C $VRBO_TMP
+    mv $VRBO_TMP/bat-v0.21.0-x86_64-unknown-linux-gnu/bat $VRBO/bin
+}
+
 vrbo_cfg_tmux() {
     echo wat
 }
@@ -52,6 +59,7 @@ vrbo_docker() {
 
     # docker-compose:  do this
     # - https://docs.docker.com/compose/install/compose-plugin/#install-the-plugin-manually
+    echo wot
 }
 
 
