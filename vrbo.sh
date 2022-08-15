@@ -3,6 +3,7 @@
 # No Ansible For Old Men
 #
 
+# hmm /run/user/1001 might also work
 export VRBO=/dev/shm/glyn-home
 export VRBO_TMP=/tmp/vrbo
 
@@ -34,7 +35,7 @@ vrbo_cfg_tmux() {
 
 vrbo_cfg_env() {
     echo Configuing VRBO environment
-    mkdir -p $VRBO/{bin,etc,var,run,tmp}
+    mkdir -p $VRBO/{bin,var,run,tmp}
     mkdir -p $VRBO_TMP
 
 

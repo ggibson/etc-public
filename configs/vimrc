@@ -42,3 +42,18 @@ set grepprg=ag
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctags stuff
 set tags+=tags;/
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" fzf stuff
+set rtp+=~/.fzf
+
+map <C-p> :FZF<cr>
+
+command! FZFMru call fzf#run({
+\  'source':  v:oldfiles,
+\  'sink':    'e',
+\  'options': '-m -x +s',
+\  'down':    '40%'})
+
+map <Leader>r :FZFMru<cr>
