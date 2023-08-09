@@ -64,3 +64,11 @@ docker.examine() {
     local image=$1
     docker run --rm -it --entrypoint=/bin/bash $image -i
 }
+
+docker.killall() {
+    docker ps | awk '{print$1}' | xargs -I % docker kill %
+}
+
+docker.rm_untagged() {
+    docker images | grep none | awk '{print $3}' | xargs -I % docker rmi %
+}
