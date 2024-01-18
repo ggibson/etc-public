@@ -19,6 +19,7 @@ map <Tab> :bn<cr>
 map <S-Tab> :bp<cr>
 
 map <Leader><Tab> :tabnext<cr>
+map <Leader>b :Lexplore<cr>
 
 nmap <C-p> :find 
 
@@ -36,24 +37,55 @@ let g:netrw_altv=1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " depends on exteral programs, but these are *very* useful
 set makeprg=pylint\ %
-set grepprg=ag
-
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+  set grepformat=%f:%l:%c:%m
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctags stuff
 set tags+=tags;/
 
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" fzf stuff
-set rtp+=~/.fzf
+" fzf support without plugins
+function! FZF() abort
+    let l:tempname = tempname()
+    " fzf | awk '{ print $1":1:0" }' > file
+    execute 'silent !fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
+    try
+        execute 'cfile ' . l:tempname
+        redraw!
+    finally
+        call delete(l:tempname)
+    endtry
+endfunction
 
-map <C-p> :FZF<cr>
+" :Files
+command! -nargs=* Files call FZF()
+nnoremap <leader>ff :Files<cr>
 
-command! FZFMru call fzf#run({
-\  'source':  v:oldfiles,
-\  'sink':    'e',
-\  'options': '-m -x +s',
-\  'down':    '40%'})
 
-map <Leader>r :FZFMru<cr>
+function! RG(args) abort
+    let l:tempname = tempname()
+    let l:pattern = '.'
+    if len(a:args) > 0
+        let l:pattern = a:args
+    endif
+    " rg --vimgrep <pattern> | fzf -m > file
+    execute 'silent !rg --vimgrep ''' . l:pattern . ''' | fzf -m > ' . fnameescape(l:tempname)
+    try
+        execute 'cfile ' . l:tempname
+        redraw!
+    finally
+        call delete(l:tempname)
+    endtry
+endfunction
+
+" :Rg [pattern]
+command! -nargs=* Rg call RG(<q-args>)
+
+" \fs
+nnoremap <leader>fs :Rg<cr>
+
