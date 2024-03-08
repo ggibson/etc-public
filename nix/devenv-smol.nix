@@ -14,6 +14,7 @@ mkShell {
     unzip
     lnav
     fzf
+    neovim
   ];
 
   shellHook = ''

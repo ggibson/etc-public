@@ -1,6 +1,29 @@
 
 
 # Notes
+## 2024-02-29 
+
+Install into namespace/chroot
+
+```
+
+# get nix-user-chroot
+wget https://github.com/nix-community/nix-user-chroot/releases/download/1.2.2/nix-user-chroot-bin-1.2.2-x86_64-unknown-linux-musl -O ~/bin/nix-user-chroot
+chmod +x ~/bin/nix-user-chroot
+
+# install nix into chroot
+mkdir -m 0755 ~/.nix
+nix-user-chroot ~/.nix bash -c 'curl -L https://nixos.org/nix/install | sh'
+
+# start shell in chroot
+nix-user-chroot ~/.nix bash
+
+# and source env 
+source ~/.nix-profile/etc/profile.d/nix.sh
+
+```
+
+
 ## 2024-01-18 
 
 
